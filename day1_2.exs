@@ -1,0 +1,13 @@
+"day1.in"
+|> File.stream!()
+|> Enum.map(&Integer.parse/1)
+|> Enum.reduce([0], fn
+  {c, _}, [total | rest] -> [total + c | rest]
+  :error, acc -> [0 | acc]
+end)
+|> Enum.reverse
+|> Enum.with_index(1)
+|> Enum.sort_by(fn {total, n} -> -total end)
+|> Enum.take(3)
+|> Enum.reduce(0, fn {v, _}, acc -> v + acc end)
+|> IO.inspect
